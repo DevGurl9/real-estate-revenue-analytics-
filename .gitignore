@@ -1,0 +1,77 @@
+# =========================
+# Python Virtual Environment
+# =========================
+venv/
+env/
+ENV/
+
+# =========================
+# Python Cache / Compiled
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# VS Code Settings (optional)
+# =========================
+.vscode/
+
+# =========================
+# Data Files (IMPORTANT)
+# =========================
+data/raw/*
+data/processed/*
+
+# Keep folder structure but ignore files
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# =========================
+# Database Files
+# =========================
+*.sqlite
+*.db
+
+# =========================
+# Temporary / Output Files
+# =========================
+*.csv
+*.xlsx
+
+# =========================
+# Secrets / Keys
+# =========================
+config/.env
+
+
+
+# =========================
+# Word / Personal Notes
+# =========================
+*.docx
+
+# Optional: notes / personal files
+*_info.docx
