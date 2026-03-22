@@ -44,10 +44,12 @@ Thumbs.db
 # =========================
 data/raw/*
 data/processed/*
+_bkup/*
 
 # Keep folder structure but ignore files
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!_bkup
 
 # =========================
 # Database Files
@@ -75,3 +77,6 @@ config/.env
 
 # Optional: notes / personal files
 *_info.docx
+
+# Allow only final reports
+!Rent_Pricing_Analysis_Report.docx
