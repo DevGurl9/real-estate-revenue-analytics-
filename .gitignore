@@ -77,10 +77,9 @@ config/.env
 *.xlsx
 
 # Optional: notes / personal files
-*_info.docx
+# *_info.docx
 
 # Allow ONLY your final deliverables
 !Real Estate Analysis/
 !Real Estate Analysis/*.docx
-!Real Estate Analysis/*.xlsx# Allow only final reports
-!Rent_Pricing_Analysis_Report.docx
+!Real Estate Analysis/*.xlsx
