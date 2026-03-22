@@ -74,9 +74,13 @@ config/.env
 # Word / Personal Notes
 # =========================
 *.docx
+*.xlsx
 
 # Optional: notes / personal files
 *_info.docx
 
-# Allow only final reports
+# Allow ONLY your final deliverables
+!Real Estate Analysis/
+!Real Estate Analysis/*.docx
+!Real Estate Analysis/*.xlsx# Allow only final reports
 !Rent_Pricing_Analysis_Report.docx
