@@ -81,5 +81,7 @@ config/.env
 
 # Allow ONLY your final deliverables
 !Real Estate Analysis/
-!Real Estate Analysis/*.docx
-!Real Estate Analysis/*.xlsx
+
+# Explicitly allow ONLY these files
+!Real Estate Analysis/Rent_Pricing_Analysis_Report.docx
+!Real Estate Analysis/Real_Estate_Dashboard_Template.xlsx
