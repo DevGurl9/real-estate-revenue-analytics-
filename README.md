@@ -78,6 +78,24 @@ source venv\Scripts\activate
 pip install -r requrements.txt
 ```
 
+## How to Run the Project
+
+### 1. Install dependencies
+pip install -r requirements.txt
+
+### 2. Run the full pipeline
+python run_portfolio.py
+
+This will:
+- generate synthetic real estate data
+- process and transform datasets
+- save outputs to Real Estate Analysis
+- load data into SQLite database
+
+
+
+
+
 
 ## Analysis Deliverables
 
