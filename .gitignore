@@ -22,11 +22,13 @@ __pycache__/
 # Environment Variables
 # =========================
 .env
+.env.*
 
 # =========================
 # Logs
 # =========================
 *.log
+*.tmp
 
 # =========================
 # OS Files
@@ -57,17 +59,46 @@ _bkup/*
 *.sqlite
 *.db
 
+# Specifically exclude your generated DB
+database/property_data.db
+
 # =========================
 # Temporary / Output Files
 # =========================
 *.csv
 *.xlsx
 
+
+# =====================================================
+# Excel / Office
+# =====================================================
+# Temp Excel files
+~$*.xlsx
+~$*.xlsm
+
+# Generated dashboards (exclude)
+# dashboards/*.xlsx
+
+# If you want to EXCLUDE built dashboard only:
+# dashboards/Real_Estate_Dashboard_Built.xlsx
+
+
 # =========================
 # Secrets / Keys
 # =========================
 config/.env
 
+
+# =====================================================
+# Data folders
+# =====================================================
+# Ignore all processed data (reproducible)
+data/processed/*
+!data/processed/.gitkeep
+
+# Optional: ignore raw data if large or sensitive
+# data/raw/*
+# !data/raw/.gitkeep
 
 
 # =========================
@@ -85,3 +116,30 @@ config/.env
 # Explicitly allow ONLY these files
 !Real Estate Analysis/Rent_Pricing_Analysis_Report.docx
 !Real Estate Analysis/Real_Estate_Dashboard_Template.xlsx
+
+
+# =====================================================
+# Specific files (your custom excludes)
+# =====================================================
+_continue.txt
+test.py
+
+
+# =====================================================
+# 🧱 Keep folder structure
+# =====================================================
+!data/
+!data/raw/
+!data/processed/
+!database/
+!dashboards/
+!notebooks/
+
+# Keep placeholders
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!database/.gitkeep
+!dashboards/.gitkeep
+!notebooks/.gitkeep
+```
+
