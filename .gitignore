@@ -44,8 +44,8 @@ Thumbs.db
 # =========================
 # Data Files (IMPORTANT)
 # =========================
-data/raw/*
-data/processed/*
+# data/raw/*
+# data/processed/*
 _bkup/*
 
 # Keep folder structure but ignore files
