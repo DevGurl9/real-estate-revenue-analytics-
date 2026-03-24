@@ -93,8 +93,23 @@ This will:
 - load data into SQLite database
 
 
+## Data Disclaimer
 
+All datasets used in this project are synthetic and generated for educational and portfolio purposes.  
+No real tenant, financial, or property data is used.
 
+## Work Flow Diagram 
+Raw Data (CSV)
+   ↓
+Extract (Python)
+   ↓
+Transform (Pandas)
+   ↓
+Load (SQLite / CSV)
+   ↓
+Analysis (Jupyter)
+   ↓
+Dashboard (Excel)
 
 
 ## Analysis Deliverables
