@@ -13,6 +13,12 @@ The project demonstrates skills in:
 - Data Visualization
 - ETL pipelines
 
+## Current automation status:
+- Pricing_Comparison: automated
+- Revenue_Summary: planned
+- Occupancy_Trends: planned
+- Expense_Analysis: planned
+
 
 ## Project Structure
 
