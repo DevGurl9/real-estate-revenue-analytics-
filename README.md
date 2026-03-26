@@ -80,9 +80,21 @@ source venv\Scripts\activate
 
 ### 3. Install dependencies
 
+#### Base environment
 ```bash
-pip install -r requrements.txt
+pip install -r requirements.txt
 ```
+
+#### For exact environment:
+```bash
+pip install -r requirements-lock.txt
+```
+
+#### For dev environment:
+```bash
+pip install -r requirements-dev.txt
+```
+
 
 ## How to Run the Project
 
