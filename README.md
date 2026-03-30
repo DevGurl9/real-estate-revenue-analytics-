@@ -109,6 +109,7 @@ This will:
 - process and transform datasets
 - save outputs to Real Estate Analysis
 - load data into SQLite database
+- format Excel dashboard
 
 
 ## Data Disclaimer
