@@ -16,6 +16,10 @@ PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
 DATABASE_DIR = PROJECT_ROOT / "database"
 DATABASE_PATH = DATABASE_DIR / "property_data.db"
 
+ANALYSIS_DIR = PROJECT_ROOT / "Real Estate Analysis"
+EXCEL_TEMPLATE_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard_Template.xlsm"
+EXCEL_OUTPUT_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard.xlsx"
+
 
 def ensure_output_dirs() -> None:
     """
@@ -23,6 +27,7 @@ def ensure_output_dirs() -> None:
     """
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
     DATABASE_DIR.mkdir(parents=True, exist_ok=True)
+    ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def save_csv(df: pd.DataFrame, file_name: str) -> None:
@@ -63,18 +68,107 @@ def load_to_sqlite(data: dict[str, pd.DataFrame], db_path: Path = DATABASE_PATH)
     print(f"Loaded data into SQLite database: {db_path.resolve()}")
 
 
+def refresh_excel_dashboard() -> None:
+    """
+    Open the Excel macro-enabled template, run VBA RefreshDashboard,
+    and save the final output as Real_Estate_Dashboard.xlsx.
+    """
+    try:
+        import win32com.client as win32
+    except ImportError as exc:
+        raise ImportError(
+            "pywin32 is required to run Excel VBA automation. "
+            "Install it with: pip install pywin32"
+        ) from exc
+
+    if not EXCEL_TEMPLATE_PATH.exists():
+        raise FileNotFoundError(
+            f"Excel template not found: {EXCEL_TEMPLATE_PATH}\n"
+            f"Expected a macro-enabled file named: Real_Estate_Dashboard_Template.xlsm"
+        )
+
+    # remove this hard coded line after testing
+    EXCEL_OUTPUT_PATH = Path(r"C:\Temp\Real_Estate_Dashboard.xlsx")
+        
+    excel = None
+    wb = None
+
+    try:
+        excel = win32.DispatchEx("Excel.Application")
+        excel.Visible = False
+        excel.DisplayAlerts = False
+        
+        print("____________refresh_excel_dashboard bef Open__________________")
+        print("Template path:", EXCEL_TEMPLATE_PATH.resolve())
+        print("Output path:", EXCEL_OUTPUT_PATH.resolve())
+        print("Output exists:", EXCEL_OUTPUT_PATH.exists())
+        print("____________refresh_excel_dashboard end before Open__________________")
+
+        wb = excel.Workbooks.Open(str(EXCEL_TEMPLATE_PATH.resolve()))
+
+        # Run VBA macro stored inside the workbook
+        excel.Application.Run(f"'{wb.Name}'!RefreshDashboard")
+
+        # Save refreshed output as non-macro workbook
+        # FileFormat=51 => .xlsx
+        print("____________refresh_excel_dashboard before SaveAs___________")
+        print("Template path:", EXCEL_TEMPLATE_PATH.resolve())
+        print("Output path:", EXCEL_OUTPUT_PATH.resolve())
+        print("Output exists:", EXCEL_OUTPUT_PATH.exists())
+        print("____________refresh_excel_dashboard  end __________________")
+        
+
+        
+        wb.SaveAs(str(EXCEL_OUTPUT_PATH.resolve()), FileFormat=51)
+
+        print(f"Refreshed Excel dashboard: {EXCEL_OUTPUT_PATH.resolve()}")
+
+    finally:
+        if wb is not None:
+            try:
+                wb.Close(SaveChanges=False)
+            except Exception:
+                pass
+            
+        if excel is not None:
+            try:
+                excel.Quit()
+            except Exception:
+                pass
+
+        wb = None
+        excel = None
+
+def run_step(step_name, func, *args, outputs=None):
+    try:
+        result = func(*args)
+        print(f"{step_name} complete")
+        
+        # Print output locations if provided
+        if outputs:
+            for label, path in outputs.items():
+                print(f"{label}: {path}")
+        
+        return result
+    
+    except Exception as e:
+        print(f"Failed: {step_name} → {e}")
+        raise
+
 def main() -> None:
-    ensure_output_dirs()
 
-    transformed_data = transform_all_data()
+    run_step("ensure_output_dirs", ensure_output_dirs)
 
-    save_all_processed_csvs(transformed_data)
-    load_to_sqlite(transformed_data)
+    transformed_data = run_step("transformed_data",  transform_all_data)
+
+    run_step("save_all_processed_csvs", save_all_processed_csvs, transformed_data, outputs={"Processed CSV files": PROCESSED_DATA_DIR})
+    run_step("load_to_sqlite", load_to_sqlite, transformed_data, outputs={"SQLite database": DATABASE_PATH})
+    run_step("refresh_excel_dashboard", refresh_excel_dashboard, outputs={"Excel dashboard": EXCEL_OUTPUT_PATH})
 
     print("\nETL load step complete.")
-    print(f"Processed CSV files saved to: {PROCESSED_DATA_DIR}")
-    print(f"SQLite database saved to: {DATABASE_PATH}")
 
+        
+         
 
 if __name__ == "__main__":
     main()
