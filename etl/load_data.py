@@ -105,6 +105,11 @@ def refresh_excel_dashboard() -> None:
         print("____________refresh_excel_dashboard end before Open__________________")
 
         wb = excel.Workbooks.Open(str(EXCEL_TEMPLATE_PATH.resolve()))
+        
+        # Write runtime config into hidden config sheet
+        ws_config = wb.Worksheets("_config")
+        ws_config.Range("B1").Value = str(DATABASE_PATH.resolve())
+        ws_config.Range("B2").Value = str(PROJECT_ROOT.resolve())
 
         # Run VBA macro stored inside the workbook
         excel.Application.Run(f"'{wb.Name}'!RefreshDashboard")
@@ -117,7 +122,6 @@ def refresh_excel_dashboard() -> None:
         print("Output exists:", EXCEL_OUTPUT_PATH.exists())
         print("____________refresh_excel_dashboard  end __________________")
         
-
         
         wb.SaveAs(str(EXCEL_OUTPUT_PATH.resolve()), FileFormat=51)
 
