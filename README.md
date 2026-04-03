@@ -28,19 +28,33 @@ real-estate-analytics/
 │   ├── raw
 │   └── processed
 │
-├── notebooks/
-│   analysis.ipynb
+|__ database/
+|     schema.sql
+|
+|__ etl/
+│     extract.py
+│     transform.py
+│     load.py
+|
+|__ notebooks/
+│     occupancy_analysis.ipynb: planned
+|     revenue_analysis.ipynb: planned
 │
-├── scripts/
-│   extract.py
-│   transform.py
-│   load.py
+|__ Real Estate Analytics
+|     Real_Estate_Dashboard.xslx
+|     Real_Estate_Dashboard_Template.xslx
+|     Real_Estate_Dashboard_Template.xslm
+|     Rent_Pricing_Analysis_Report.docx
+|
+|── scripts/
+|     clear_output_files.py
+|     generate_synthetic_data.py
 │
-├── database/
-│   schema.sql
-│
-├── requirements.txt
-└── README.md
+|__ setup_env.bat
+|__ run_portfolio.py
+|__ requirements.txt
+|__ README.md
+└── run_jupyter.bat
 
 ## Installation
 
@@ -95,13 +109,20 @@ pip install -r requirements-lock.txt
 pip install -r requirements-dev.txt
 ```
 
+## Install SQLite ODBC Driver 
+This driver is required to connect to Python SQLite database
+from Excel to load the processed data
+
+Go to https://www.ch-werner.de/sqliteodbc/ 
+Download the appropriate SQLite ODBC driver for your environment
+
 
 ## How to Run the Project
 
 ### 1. Install dependencies
 pip install -r requirements.txt
 
-### 2. Run the full pipeline
+### 2. Run the full pipeline 
 python run_portfolio.py
 
 This will:
