@@ -17,7 +17,9 @@ DATABASE_DIR = PROJECT_ROOT / "database"
 DATABASE_PATH = DATABASE_DIR / "property_data.db"
 
 ANALYSIS_DIR = PROJECT_ROOT / "Real Estate Analysis"
-EXCEL_TEMPLATE_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard_Template.xlsm"
+# Template on ONE DRIVE will always autosave and/or sync.
+# EXCEL_TEMPLATE_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard_Template.xlsm"
+EXCEL_TEMPLATE_PATH = Path(r"C:\Temp\Real_Estate_Dashboard_Template.xlsm")
 EXCEL_OUTPUT_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard.xlsx"
 
 
