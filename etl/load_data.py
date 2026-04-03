@@ -17,9 +17,14 @@ DATABASE_DIR = PROJECT_ROOT / "database"
 DATABASE_PATH = DATABASE_DIR / "property_data.db"
 
 ANALYSIS_DIR = PROJECT_ROOT / "Real Estate Analysis"
+
 # Template on ONE DRIVE will always autosave and/or sync.
-# EXCEL_TEMPLATE_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard_Template.xlsm"
-EXCEL_TEMPLATE_PATH = Path(r"C:\Temp\Real_Estate_Dashboard_Template.xlsm")
+EXCEL_TEMPLATE_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard_Template.xlsm"
+
+# Change to use template on C:\Temp after creating code to copy template from OneDrive to C:\Temp before refreshing dashboard. 
+# This will prevent sync issues and allow the template to stay in it's original format with loaded data and formatting.
+# EXCEL_TEMPLATE_PATH = Path(r"C:\Temp\Real_Estate_Dashboard_Template.xlsm")
+
 EXCEL_OUTPUT_PATH = ANALYSIS_DIR / "Real_Estate_Dashboard.xlsx"
 
 
