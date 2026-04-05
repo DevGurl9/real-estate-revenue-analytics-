@@ -19,7 +19,6 @@ The project demonstrates skills in:
 - Occupancy_Trends: planned
 - Expense_Analysis: planned
 
-
 ## Project Structure
 
 real-estate-analytics/
@@ -115,6 +114,14 @@ from Excel to load the processed data
 
 Go to https://www.ch-werner.de/sqliteodbc/ 
 Download the appropriate SQLite ODBC driver for your environment
+
+
+## Create C:\Temp dir 
+Create a directory on the C:\ called \Temp.
+It is necessary to run this project from the C:\Temp directory 
+to avoid auto-saving that occurs with OneDrive.  
+This will prevent the Template file from being overwritten and
+remaining in it's original state.
 
 
 ## How to Run the Project
