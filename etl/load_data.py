@@ -77,8 +77,9 @@ def load_to_sqlite(data: dict[str, pd.DataFrame], db_path: Path = DATABASE_PATH)
 
 def refresh_excel_dashboard() -> None:
     """
-    Open the Excel macro-enabled template, run VBA RefreshDashboard,
-    and save the final output as Real_Estate_Dashboard.xlsx.
+    Open the copied Excel macro-enabled template in C:\\Temp,
+    run VBA RefreshDashboard, and let VBA save the final
+    Real_Estate_Dashboard.xlsx in the same folder.
     """
     try:
         import win32com.client as win32
@@ -88,15 +89,15 @@ def refresh_excel_dashboard() -> None:
             "Install it with: pip install pywin32"
         ) from exc
 
-    if not EXCEL_TEMPLATE_PATH.exists():
+    temp_template_path = Path(r"C:\Temp\Real_Estate_Dashboard_Template.xlsm")
+    excel_output_path = Path(r"C:\Temp\Real_Estate_Dashboard.xlsx")
+
+    if not temp_template_path.exists():
         raise FileNotFoundError(
-            f"Excel template not found: {EXCEL_TEMPLATE_PATH}\n"
-            f"Expected a macro-enabled file named: Real_Estate_Dashboard_Template.xlsm"
+            f"Copied Excel template not found: {temp_template_path}\n"
+            "Expected load_data.py or an earlier step to copy the template to C:\\Temp first."
         )
 
-    # remove this hard coded line after testing
-    EXCEL_OUTPUT_PATH = Path(r"C:\Temp\Real_Estate_Dashboard.xlsx")
-        
     excel = None
     wb = None
 
@@ -104,15 +105,15 @@ def refresh_excel_dashboard() -> None:
         excel = win32.DispatchEx("Excel.Application")
         excel.Visible = False
         excel.DisplayAlerts = False
-        
-        print("____________refresh_excel_dashboard bef Open__________________")
-        print("Template path:", EXCEL_TEMPLATE_PATH.resolve())
-        print("Output path:", EXCEL_OUTPUT_PATH.resolve())
-        print("Output exists:", EXCEL_OUTPUT_PATH.exists())
-        print("____________refresh_excel_dashboard end before Open__________________")
 
-        wb = excel.Workbooks.Open(str(EXCEL_TEMPLATE_PATH.resolve()))
-        
+        print("____________refresh_excel_dashboard before Open__________________")
+        print("Template path:", temp_template_path.resolve())
+        print("Expected output path:", excel_output_path.resolve())
+        print("Output exists before refresh:", excel_output_path.exists())
+        print("____________refresh_excel_dashboard end before Open______________")
+
+        wb = excel.Workbooks.Open(str(temp_template_path.resolve()))
+
         # Write runtime config into hidden config sheet
         ws_config = wb.Worksheets("_config")
         ws_config.Range("B1").Value = str(DATABASE_PATH.resolve())
@@ -121,18 +122,13 @@ def refresh_excel_dashboard() -> None:
         # Run VBA macro stored inside the workbook
         excel.Application.Run(f"'{wb.Name}'!RefreshDashboard")
 
-        # Save refreshed output as non-macro workbook
-        # FileFormat=51 => .xlsx
-        print("____________refresh_excel_dashboard before SaveAs___________")
-        print("Template path:", EXCEL_TEMPLATE_PATH.resolve())
-        print("Output path:", EXCEL_OUTPUT_PATH.resolve())
-        print("Output exists:", EXCEL_OUTPUT_PATH.exists())
-        print("____________refresh_excel_dashboard  end __________________")
-        
-        
-        wb.SaveAs(str(EXCEL_OUTPUT_PATH.resolve()), FileFormat=51)
+        print("____________refresh_excel_dashboard after VBA____________________")
+        print("Template path:", temp_template_path.resolve())
+        print("Expected output path:", excel_output_path.resolve())
+        print("Output exists after refresh:", excel_output_path.exists())
+        print("____________refresh_excel_dashboard end _________________________")
 
-        print(f"Refreshed Excel dashboard: {EXCEL_OUTPUT_PATH.resolve()}")
+        print(f"Refreshed Excel dashboard: {excel_output_path.resolve()}")
 
     finally:
         if wb is not None:
@@ -140,7 +136,7 @@ def refresh_excel_dashboard() -> None:
                 wb.Close(SaveChanges=False)
             except Exception:
                 pass
-            
+
         if excel is not None:
             try:
                 excel.Quit()
