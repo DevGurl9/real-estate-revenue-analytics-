@@ -103,7 +103,8 @@ def refresh_excel_dashboard() -> None:
 
     try:
         excel = win32.DispatchEx("Excel.Application")
-        excel.Visible = False
+        # TBD:  After debugging, set Visible to False to run in background without opening Excel window.
+        excel.Visible = True   
         excel.DisplayAlerts = False
 
         print("____________refresh_excel_dashboard before Open__________________")
