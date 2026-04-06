@@ -132,6 +132,16 @@ pip install -r requirements.txt
 ### 2. Run the full pipeline 
 python run_portfolio.py
 
+### 3.  Excel prompts
+
+1st prompt:  After a few minutes Go to Excel icon on the status bar that will be blinking.  
+Click  “No” to not save  C:\Temp\Real_Estate_Dashboard_Template.xlsm.  
+
+2nd prompt:  Click  “Yes” to save or replace existing  C:\Temp\Real_Estate_Dashboard.xlsx.  
+
+Then open C:\Temp\Real_Estate_Dashboard.xlsx and review the Dashboard sheet.
+
+
 This will:
 - generate synthetic real estate data
 - process and transform datasets
